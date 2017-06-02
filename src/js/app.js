@@ -56,7 +56,7 @@ AppDispatcher.register(function(payload) {
         case ActionTypes.EMAIL_AUTH:
             EmailStore.email = payload.email;
 
-            fetch('http://api.cartexted.com/user/email/auth', {
+            fetch('http://local.api.cartexted.com/user/email/auth', {
                 method: 'post',
                 headers: {
                     "Content-type": "application/json"
