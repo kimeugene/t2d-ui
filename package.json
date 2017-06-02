@@ -1,0 +1,33 @@
+{
+  "name": "t2d-ui",
+  "version": "1.0.0",
+  "description": "T2D",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "flux": "^3.1.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "webpack": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimeugene/t2d-ui.git"
+  },
+  "keywords": [
+    "t2d"
+  ],
+  "author": "t2d",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimeugene/t2d-ui/issues"
+  },
+  "homepage": "https://github.com/kimeugene/t2d-ui#readme"
+}

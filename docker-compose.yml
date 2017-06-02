@@ -1,0 +1,20 @@
+version: "3"
+services:
+
+  t2d-ui:
+    image: t2d-ui
+    container_name: t2d-ui
+    volumes:
+      - ~/vagrant/t2d/git/t2d-ui:/var/www/t2d-ui
+
+  local.cartexted.com:
+    image: nginx
+    container_name: t2d-ui-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ~/vagrant/t2d/git/t2d-ui:/var/www/t2d-ui
+      - ~/vagrant/t2d/git/t2d-ui/etc/nginx/cartexted.com.conf:/etc/nginx/conf.d/cartexted.com.conf
+
+
+
