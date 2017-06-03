@@ -1,6 +1,31 @@
 version: "3"
 services:
 
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  local.db.cartexted.com:
+     image: mysql:5.7
+     container_name: t2d-mysql
+     volumes:
+       - ~/vagrant/t2d/git/t2d/db_data:/var/lib/mysql
+     restart: always
+     ports:
+       - "3306:3306"
+     environment:
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_DATABASE: t2d
+       MYSQL_USER: root
+
+  local.cache.cartexted.com:
+    image: memcached
+    container_name: t2d-memcached
+
   t2d-ui:
     image: t2d-ui
     container_name: t2d-ui
@@ -10,11 +35,32 @@ services:
   local.cartexted.com:
     image: nginx
     container_name: t2d-ui-nginx
-    ports:
-      - "80:80"
     volumes:
       - ~/vagrant/t2d/git/t2d-ui:/var/www/t2d-ui
       - ~/vagrant/t2d/git/t2d-ui/etc/nginx/cartexted.com.conf:/etc/nginx/conf.d/cartexted.com.conf
+    environment:
+      - VIRTUAL_HOST=local.cartexted.com
+
+  local.api.cartexted.com:
+    image: t2d-api-nginx
+    container_name: t2d-api-nginx
+    volumes:
+      - ~/vagrant/t2d/git/t2d:/var/www/t2d
+    environment:
+      - VIRTUAL_HOST=local.api.cartexted.com
+
+
+  t2d-api-php:
+    image: t2d-api-php
+    container_name: t2d-api-php
+    volumes:
+      - ~/vagrant/t2d/git/t2d:/var/www/t2d
+    environment:
+      AWS_ACCESS_KEY_ID: AKIAJBARAYQAEDRR4R3Q
+      AWS_SECRET_ACCESS_KEY: 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
+
+
+
 
 
 
