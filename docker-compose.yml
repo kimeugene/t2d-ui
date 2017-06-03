@@ -56,8 +56,8 @@ services:
     volumes:
       - ~/vagrant/t2d/git/t2d:/var/www/t2d
     environment:
-      AWS_ACCESS_KEY_ID: AKIAJBARAYQAEDRR4R3Q
-      AWS_SECRET_ACCESS_KEY: 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
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY: 
 
 
 
