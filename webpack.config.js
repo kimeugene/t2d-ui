@@ -5,7 +5,8 @@ module.exports = {
         filename: 'bundle.js'
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        modules: ['./src/js', 'node_modules']
     },
     module: {
         loaders: [

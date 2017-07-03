@@ -1,19 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
-// Helpers
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
 // Get Dispatcher
-const Dispatcher = require('flux').Dispatcher;
+//const Dispatcher = require('flux').Dispatcher;
+import {Dispatcher} from 'flux';
+import * as helper from 'helper';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import MicroEvent from 'microevent';
+
 const AppDispatcher = new Dispatcher();
-var MicroEvent = require('./microevent.js')
 
-
-// Meet Actions
 const ActionTypes = {
     EMAIL_AUTH:     'EMAIL_AUTH',
     EMAIL_RESEND:   'EMAIL_RESEND',
@@ -38,8 +32,8 @@ const Actions = {
             email: email,
             error: error
         });
-    },
-}
+    }
+};
 
 // Introduce a simple store and add event emitting 
 let EmailStore = {
@@ -50,13 +44,14 @@ let EmailStore = {
 
 MicroEvent.mixin(EmailStore);
 
+
 // Start the magic and register the store to listen to actions 
 AppDispatcher.register(function(payload) {
     switch(payload.type) {
         case ActionTypes.EMAIL_AUTH:
             EmailStore.email = payload.email;
 
-            fetch('http://api.cartexted.com/user/email/auth', {
+            fetch('http://local.api.cartexted.com/user/email/auth', {
                 method: 'post',
                 headers: {
                     "Content-type": "application/json"
@@ -149,7 +144,7 @@ class HomePageController extends React.Component {
     emailSubmit(event) {
         event.preventDefault();
 
-        if (validateEmail(this.state.email)) {
+        if (helper.validateEmail(this.state.email)) {
             this.validateRuntime = false;
             Actions.emailAuth(this.state.email);
         } else {
@@ -169,7 +164,7 @@ class HomePageController extends React.Component {
         let emailValidationClass = null;
 
         if (this.validateRuntime) {
-            emailValidationClass = validateEmail(this.state.email) ? 'valid' : 'invalid';
+            emailValidationClass = helper.validateEmail(this.state.email) ? 'valid' : 'invalid';
         } else {
             emailValidationClass = '';
         }
